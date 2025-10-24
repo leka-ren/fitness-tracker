@@ -73,9 +73,44 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 }
 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	if steps <= 0 {
+		return 0, errors.New("incorrect steps count")
+	}
+	if weight <= 0 {
+		return 0, errors.New("incorrect weight")
+	}
+	if height <= 0 {
+		return 0, errors.New("incorrect height")
+	}
+	if duration <= 0 {
+		return 0, errors.New("incorrect duration")
+	}
+
+	midManSpeed := meanSpeed(steps, height, duration)
+	caloriesSpentTotal := (weight * midManSpeed * duration.Minutes()) / minInH
+
+	return caloriesSpentTotal, nil
 }
 
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	if steps <= 0 {
+		return 0, errors.New("incorrect steps count")
+	}
+	if weight <= 0 {
+		return 0, errors.New("incorrect weight")
+	}
+	if height <= 0 {
+		return 0, errors.New("incorrect height")
+	}
+	if duration <= 0 {
+		return 0, errors.New("incorrect duration")
+	}
+
+	midManSpeed := meanSpeed(steps, height, duration)
+	caloriesSpentTotal := (weight * midManSpeed * duration.Minutes()) / minInH
+
+	// корректировка под пеший тип активности
+	caloriesSpentTotal *= walkingCaloriesCoefficient
+
+	return caloriesSpentTotal, nil
 }
