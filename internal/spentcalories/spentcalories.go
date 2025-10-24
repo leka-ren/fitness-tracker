@@ -1,6 +1,9 @@
 package spentcalories
 
 import (
+	"errors"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -14,7 +17,34 @@ const (
 )
 
 func parseTraining(data string) (int, string, time.Duration, error) {
-	// TODO: реализовать функцию
+	// "3456,Ходьба,3h00m"
+	trainingInform := strings.Split(data, ",")
+
+	if len(trainingInform) != 3 {
+		return 0, "", 0, errors.New("incorrect data length, should be 3")
+	}
+
+	stepsCount, errorStepsConvert := strconv.Atoi(trainingInform[0])
+	activityType := trainingInform[1]
+	walkDuration, errorWalkDurationParse := time.ParseDuration(trainingInform[2])
+
+	if stepsCount <= 0 {
+		return 0, "", 0, errors.New("incorrect steps count")
+	}
+
+	if walkDuration.Seconds() <= 0 {
+		return 0, "", 0, errors.New("incorrect walk duration")
+	}
+
+	if errorStepsConvert != nil {
+		return 0, "", 0, errorStepsConvert
+	}
+
+	if errorWalkDurationParse != nil {
+		return 0, "", 0, errorWalkDurationParse
+	}
+
+	return stepsCount, activityType, walkDuration, nil
 }
 
 func distance(steps int, height float64) float64 {
