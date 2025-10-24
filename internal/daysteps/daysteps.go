@@ -19,8 +19,6 @@ const (
 )
 
 func parsePackage(data string) (int, time.Duration, error) {
-	// TODO: реализовать функцию
-
 	walkInform := strings.Split(data, ",")
 
 	if len(walkInform) != 2 {
@@ -50,7 +48,6 @@ func parsePackage(data string) (int, time.Duration, error) {
 }
 
 func DayActionInfo(data string, weight, height float64) string {
-	// TODO: реализовать функцию
 	steps, walkTime, errorDataParse := parsePackage(data)
 
 	if errorDataParse != nil {

@@ -19,7 +19,6 @@ const (
 )
 
 func parseTraining(data string) (int, string, time.Duration, error) {
-	// "3456,Ходьба,3h00m"
 	trainingInform := strings.Split(data, ",")
 
 	if len(trainingInform) != 3 {
@@ -58,7 +57,6 @@ func distance(steps int, height float64) float64 {
 }
 
 func meanSpeed(steps int, height float64, duration time.Duration) float64 {
-	// Функция принимает количество шагов steps, рост пользователя height и продолжительность активности duration  и возвращает среднюю скорость.
 	if duration <= 0 {
 		return 0
 	}
@@ -71,7 +69,6 @@ func meanSpeed(steps int, height float64, duration time.Duration) float64 {
 }
 
 func TrainingInfo(data string, weight, height float64) (string, error) {
-	// TODO: реализовать функцию
 	steps, activityType, totalTime, parseError := parseTraining(data)
 
 	if parseError != nil {
