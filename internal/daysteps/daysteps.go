@@ -26,11 +26,12 @@ func parsePackage(data string) (int, time.Duration, error) {
 	}
 
 	stepsCount, errorStepsConvert := strconv.Atoi(walkInform[0])
-	walkDuration, errorWalkDurationParse := time.ParseDuration(walkInform[1])
 
 	if stepsCount <= 0 {
 		return 0, 0, errors.New("некорректное значение шагов")
 	}
+
+	walkDuration, errorWalkDurationParse := time.ParseDuration(walkInform[1])
 
 	if walkDuration.Seconds() <= 0 {
 		return 0, 0, errors.New("некорректное значение времени")
