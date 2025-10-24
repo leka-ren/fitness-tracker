@@ -56,7 +56,16 @@ func distance(steps int, height float64) float64 {
 }
 
 func meanSpeed(steps int, height float64, duration time.Duration) float64 {
-	// TODO: реализовать функцию
+	// Функция принимает количество шагов steps, рост пользователя height и продолжительность активности duration  и возвращает среднюю скорость.
+	if duration <= 0 {
+		return 0
+	}
+
+	totalDistance := distance(steps, height)
+
+	midTime := totalDistance / duration.Hours()
+
+	return midTime
 }
 
 func TrainingInfo(data string, weight, height float64) (string, error) {
