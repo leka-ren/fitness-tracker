@@ -22,18 +22,18 @@ func parsePackage(data string) (int, time.Duration, error) {
 	walkInform := strings.Split(data, ",")
 
 	if len(walkInform) != 2 {
-		return 0, 0, errors.New("incorrect data length, should be 2")
+		return 0, 0, errors.New("некорректная длинна значений, должно быть 3")
 	}
 
 	stepsCount, errorStepsConvert := strconv.Atoi(walkInform[0])
 	walkDuration, errorWalkDurationParse := time.ParseDuration(walkInform[1])
 
 	if stepsCount <= 0 {
-		return 0, 0, errors.New("incorrect steps count")
+		return 0, 0, errors.New("некорректное значение шагов")
 	}
 
 	if walkDuration.Seconds() <= 0 {
-		return 0, 0, errors.New("incorrect walk duration")
+		return 0, 0, errors.New("некорректное значение времени")
 	}
 
 	if errorStepsConvert != nil {
@@ -53,7 +53,6 @@ func DayActionInfo(data string, weight, height float64) string {
 	if errorDataParse != nil {
 		log.Println(errorDataParse)
 		return ""
-
 	}
 
 	distanseInM := stepLength * float64(steps)

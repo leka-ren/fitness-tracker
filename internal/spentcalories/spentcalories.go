@@ -22,7 +22,7 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	trainingInform := strings.Split(data, ",")
 
 	if len(trainingInform) != 3 {
-		return 0, "", 0, errors.New("incorrect data length, should be 3")
+		return 0, "", 0, errors.New("некорректная длинна значений, должно быть 3")
 	}
 
 	stepsCount, errorStepsConvert := strconv.Atoi(trainingInform[0])
@@ -30,11 +30,11 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	walkDuration, errorWalkDurationParse := time.ParseDuration(trainingInform[2])
 
 	if stepsCount <= 0 {
-		return 0, "", 0, errors.New("incorrect steps count")
+		return 0, "", 0, errors.New("некорректное значение шагов")
 	}
 
 	if walkDuration.Seconds() <= 0 {
-		return 0, "", 0, errors.New("incorrect walk duration")
+		return 0, "", 0, errors.New("некорректное значение времени")
 	}
 
 	if errorStepsConvert != nil {
@@ -100,16 +100,16 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 {
-		return 0, errors.New("incorrect steps count")
+		return 0, errors.New("некорректное значение шагов")
 	}
 	if weight <= 0 {
-		return 0, errors.New("incorrect weight")
+		return 0, errors.New("некорректное значение веса")
 	}
 	if height <= 0 {
-		return 0, errors.New("incorrect height")
+		return 0, errors.New("некорректное значение роста")
 	}
 	if duration <= 0 {
-		return 0, errors.New("incorrect duration")
+		return 0, errors.New("некорректное значение времени")
 	}
 
 	midManSpeed := meanSpeed(steps, height, duration)
@@ -120,16 +120,16 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 {
-		return 0, errors.New("incorrect steps count")
+		return 0, errors.New("некорректное значение шагов")
 	}
 	if weight <= 0 {
-		return 0, errors.New("incorrect weight")
+		return 0, errors.New("некорректное значение веса")
 	}
 	if height <= 0 {
-		return 0, errors.New("incorrect height")
+		return 0, errors.New("некорректное значение роста")
 	}
 	if duration <= 0 {
-		return 0, errors.New("incorrect duration")
+		return 0, errors.New("некорректное значение времени")
 	}
 
 	midManSpeed := meanSpeed(steps, height, duration)
