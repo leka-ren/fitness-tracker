@@ -25,43 +25,43 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, errors.New("некорректная длинна значений, должно быть 3")
 	}
 
-	stepsCount, errorStepsConvert := strconv.Atoi(walkInform[0])
+	stepsCount, err := strconv.Atoi(walkInform[0])
+
+	if err != nil {
+		return 0, 0, err
+	}
 
 	if stepsCount <= 0 {
 		return 0, 0, errors.New("некорректное значение шагов")
 	}
 
-	walkDuration, errorWalkDurationParse := time.ParseDuration(walkInform[1])
+	walkDuration, err := time.ParseDuration(walkInform[1])
+
+	if err != nil {
+		return 0, 0, err
+	}
 
 	if walkDuration.Seconds() <= 0 {
 		return 0, 0, errors.New("некорректное значение времени")
-	}
-
-	if errorStepsConvert != nil {
-		return 0, 0, errorStepsConvert
-	}
-
-	if errorWalkDurationParse != nil {
-		return 0, 0, errorWalkDurationParse
 	}
 
 	return stepsCount, walkDuration, nil
 }
 
 func DayActionInfo(data string, weight, height float64) string {
-	steps, walkTime, errorDataParse := parsePackage(data)
+	steps, walkTime, err := parsePackage(data)
 
-	if errorDataParse != nil {
-		log.Println(errorDataParse)
+	if err != nil {
+		log.Println(err)
 		return ""
 	}
 
 	distanseInM := stepLength * float64(steps)
 	distanseInKm := distanseInM / mInKm
-	caloriesTotal, errCaloriesCalc := spentcalories.WalkingSpentCalories(steps, weight, height, walkTime)
+	caloriesTotal, err := spentcalories.WalkingSpentCalories(steps, weight, height, walkTime)
 
-	if errCaloriesCalc != nil {
-		log.Println(errCaloriesCalc)
+	if err != nil {
+		log.Println(err)
 		return ""
 	}
 

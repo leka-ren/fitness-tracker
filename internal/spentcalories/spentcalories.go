@@ -24,24 +24,24 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 		return 0, "", 0, errors.New("некорректная длинна значений, должно быть 3")
 	}
 
-	stepsCount, errorStepsConvert := strconv.Atoi(trainingInform[0])
-	activityType := trainingInform[1]
-	walkDuration, errorWalkDurationParse := time.ParseDuration(trainingInform[2])
+	stepsCount, err := strconv.Atoi(trainingInform[0])
+	if err != nil {
+		return 0, "", 0, err
+	}
 
 	if stepsCount <= 0 {
 		return 0, "", 0, errors.New("некорректное значение шагов")
 	}
 
+	activityType := trainingInform[1]
+	walkDuration, err := time.ParseDuration(trainingInform[2])
+
+	if err != nil {
+		return 0, "", 0, err
+	}
+
 	if walkDuration.Seconds() <= 0 {
 		return 0, "", 0, errors.New("некорректное значение времени")
-	}
-
-	if errorStepsConvert != nil {
-		return 0, "", 0, errorStepsConvert
-	}
-
-	if errorWalkDurationParse != nil {
-		return 0, "", 0, errorWalkDurationParse
 	}
 
 	return stepsCount, activityType, walkDuration, nil
